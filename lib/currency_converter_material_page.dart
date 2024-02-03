@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
 
-class CurrencyConverterMaterialPage extends StatelessWidget {
+class CurrencyConverterMaterialPage extends StatefulWidget {
   const CurrencyConverterMaterialPage({super.key});
+  @override
+  State<CurrencyConverterMaterialPage> createState() =>
+      _CurrencyConverterMaterialPageState();
+}
+
+class _CurrencyConverterMaterialPageState
+    extends State<CurrencyConverterMaterialPage> {
+  double result = 0;
+  late final TextEditingController _textEditingController;
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController = TextEditingController();
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -9,6 +24,7 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
       backgroundColor: Colors.blueGrey,
       //appBar
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.blueGrey,
         elevation: 0,
         title: const Text(
@@ -20,9 +36,9 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              "0",
-              style: TextStyle(
+            Text(
+              "NGN $result",
+              style: const TextStyle(
                 fontSize: 35,
                 fontWeight: FontWeight.w400,
                 color: Colors.white,
@@ -31,7 +47,9 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
             //padding...
             Padding(
               padding: const EdgeInsets.all(10.0),
+              //Textfield.....
               child: TextField(
+                controller: _textEditingController,
                 keyboardAppearance: Brightness.dark,
                 keyboardType: const TextInputType.numberWithOptions(
                   decimal: true,
@@ -57,15 +75,20 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    result = double.parse(_textEditingController.text) * 1500;
+                  });
+                },
                 style: TextButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    foregroundColor: Colors.white,
-                    minimumSize: const Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    )),
-                child: const Text("Convert"),
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white,
+                  minimumSize: const Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: const Text("Convert to NGN"),
               ),
             )
           ],
