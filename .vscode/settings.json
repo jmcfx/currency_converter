@@ -1,3 +1,10 @@
 {
-    "java.compile.nullAnalysis.mode": "automatic"
+    "java.compile.nullAnalysis.mode": "automatic",
+    "debug.hideLauncherWhileDebugging": false,
+    "zenMode.hideStatusBar": true,
+    "zenMode.hideLineNumbers": true,
+    "editor.suggest.showStatusBar": false,
+    "CodeGPT.apiKey": "CodeGPT Plus Beta",
+    "git.requireGitUserConfig": true,
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

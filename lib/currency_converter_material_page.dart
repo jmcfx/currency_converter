@@ -7,6 +7,15 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey,
+      //appBar
+      appBar: AppBar(
+        backgroundColor: Colors.blueGrey,
+        elevation: 0,
+        title: const Text(
+          "Currency Converter ",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -19,14 +28,19 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            //User input....
-            TextField(
-              keyboardAppearance: Brightness.dark,
-              style: const TextStyle(
-                color: Colors.black,
-              ),
-              decoration: InputDecoration(
-                  hintText: 'Please enter the amount in USD !!',
+            //padding...
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextField(
+                keyboardAppearance: Brightness.dark,
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
+                decoration: InputDecoration(
+                  hintText: 'Please Enter The Amount in USD !!',
                   hintStyle: const TextStyle(
                     color: Colors.black,
                   ),
@@ -35,8 +49,25 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
                   filled: true,
                   focusedBorder: customOutlineInputBorder(),
                   enabledBorder: customOutlineInputBorder(),
-                  contentPadding: const EdgeInsets.all(8)),
+                  contentPadding: const EdgeInsets.all(8),
+                ),
+              ),
             ),
+            //TextButton...
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white,
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    )),
+                child: const Text("Convert"),
+              ),
+            )
           ],
         ),
       ),
