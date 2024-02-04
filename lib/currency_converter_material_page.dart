@@ -1,3 +1,5 @@
+import 'package:currency_converter/style.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyConverterMaterialPage extends StatefulWidget {
@@ -15,7 +17,6 @@ class _CurrencyConverterMaterialPageState
   void initState() {
     super.initState();
     _textEditingController = TextEditingController();
-    
   }
 
   @override
@@ -76,36 +77,54 @@ class _CurrencyConverterMaterialPageState
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: () {
+                  setState(
+                    () {
+                      String inputText = _textEditingController.text.trim();
+                      if (inputText.isNotEmpty) {
+                        //try Block.....
+                        try {
+                          setState(
+                            () {
+                              result = double.parse(inputText) * 1500;
+                              _textEditingController.clear();
+                            },
+                          );
+                        } catch (e) {
+                          if (kDebugMode) {
+                            print("Error: $e");
+                          }
+                          // Show an error message to the user...
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  "Invalid input. Please enter a valid number."),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
+                      }
+                    },
+                  );
+                },
+                style: customTextButtonStyleFrom(),
+                child: const Text("Convert to NGN"),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {
                   setState(() {
-                    result = double.parse(_textEditingController.text) * 1500;
+                    result = 0;
                   });
                 },
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  foregroundColor: Colors.white,
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                child: const Text("Convert to NGN"),
+                style: customTextButtonStyleFrom(),
+                child: const Text("Reset"),
               ),
             )
           ],
         ),
       ),
-    );
-  }
-
-  OutlineInputBorder customOutlineInputBorder() {
-    return OutlineInputBorder(
-      borderSide: const BorderSide(
-        color: Colors.black,
-        width: 2.0,
-        style: BorderStyle.solid,
-        strokeAlign: BorderSide.strokeAlignInside,
-      ),
-      borderRadius: BorderRadius.circular(10),
     );
   }
 }
