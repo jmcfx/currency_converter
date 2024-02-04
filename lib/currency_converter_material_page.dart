@@ -11,12 +11,19 @@ class CurrencyConverterMaterialPage extends StatefulWidget {
 
 class _CurrencyConverterMaterialPageState
     extends State<CurrencyConverterMaterialPage> {
-  double result = 0;
+  late double result;
   late final TextEditingController _textEditingController;
   @override
   void initState() {
     super.initState();
     _textEditingController = TextEditingController();
+    result = 0;
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -38,7 +45,7 @@ class _CurrencyConverterMaterialPageState
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "NGN $result",
+              'NGN ${result != 0 ? result.toStringAsFixed(2) : result.toStringAsFixed(0)}',
               style: const TextStyle(
                 fontSize: 35,
                 fontWeight: FontWeight.w400,
@@ -77,6 +84,7 @@ class _CurrencyConverterMaterialPageState
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: () {
+                  //setState triggers a rebuild...
                   setState(
                     () {
                       String inputText = _textEditingController.text.trim();
@@ -97,7 +105,8 @@ class _CurrencyConverterMaterialPageState
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text(
-                                  "Invalid input. Please enter a valid number."),
+                                "Invalid input. Please enter a valid number.",
+                              ),
                               backgroundColor: Colors.red,
                             ),
                           );
