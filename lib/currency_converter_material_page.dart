@@ -1,6 +1,7 @@
 import 'package:currency_converter/style.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CurrencyConverterMaterialPage extends StatefulWidget {
   const CurrencyConverterMaterialPage({super.key});
@@ -58,6 +59,9 @@ class _CurrencyConverterMaterialPageState
               //Textfield.....
               child: TextField(
                 controller: _textEditingController,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp("[0-9.]"))
+                ],
                 keyboardAppearance: Brightness.dark,
                 keyboardType: const TextInputType.numberWithOptions(
                   decimal: true,
